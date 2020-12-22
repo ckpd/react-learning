@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import {Component} from 'react'
+import './index.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+/****
+ * 
+ * 
+ */
+
+
+class Square extends Component {
+  constructor(props){
+    super(props);
+    this.state = { value : this.props.value }
+  
+    this.action = this.action.bind(this);
+
+  }
+  
+  action (){
+    this.setState({value : "X"})
+   
+  }
+
+  render(){
+    return (
+      <button className="square" onClick={ this.action }>
+        {this.state.value}
+      </button>
+    )
+  }
+
 }
 
-export default App;
+
+
+
+
+class Board extends Component {
+   render(){
+    const i = 3;
+    return (
+       <div>
+          <Square value={i} />
+        </div>
+    );
+  }
+ 
+}
+
+export default Board;
