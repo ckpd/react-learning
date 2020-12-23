@@ -17,42 +17,33 @@ const Square = (props) => {
 class Board extends Component {
   constructor(props){
     super(props);
-
-    this.state = {
-      squares: Array(9).fill(null),
-      isNextClickX: true
-    }
-
-    this.handleClick = this.handleClick.bind(this)
-
+      this.state = {
+        squares: Array(9).fill(null),
+        isNextClickX: true
+      }
   }
 
   handleClick (i) {
-    const copy_squares = this.state.squares.slice(); // this creates a new copy of the squares
+      const copy_squares = this.state.squares.slice(); // this creates a new copy of the squares
 
-    let next = this.state.isNextClickX;
-    
-    if(next === true){
-      copy_squares[i] = 'X'
-      next = false;
-    } else{
-      copy_squares[i] = 'O'
-      next = true;
-    }
+      let next = this.state.isNextClickX;
+      
+      if(next === true){
+        copy_squares[i] = 'X'
+        next = false;
+      } else{
+        copy_squares[i] = 'O'
+        next = true;
+      }
 
-    console.log(next);
-    //is X next = false : true
-
-
-
-    this.setState({
-      squares: copy_squares,
-      isNextClickX : next
+  
+      this.setState({
+        squares: copy_squares,
+        isNextClickX : next
     })
  
   }
 
-  //create an array from 1..9 [1,2,3,4,5,6,7,8,9]
 
    render(){
     const status = `Next Player - ${this.state.isNextClickX   ? 'X': 'O'}`; //string  interpolation
