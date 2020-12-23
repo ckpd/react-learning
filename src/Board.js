@@ -1,42 +1,101 @@
 import {Component} from 'react'
 import './index.css';
 
-class Square extends Component {
-  constructor(props){
-    super(props);
-    this.state = { value : this.props.value }
-  
-    this.action = this.action.bind(this);
 
-  }
-  
-  action (){
-    this.setState({value : "X"})
-   
-  }
 
-  render(){
-    return (
-      <button className="square" onClick={ this.action }>
-        {this.state.value}
+
+const Square = (props) => {
+   return (
+      <button className="square" onClick={ props.onClick }>
+        {props.value}
       </button>
     )
-  }
 
 }
 
 
-
-
-
 class Board extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      squares: Array(9).fill(null),
+      isNextClickX: true
+    }
+
+    this.handleClick = this.handleClick.bind(this)
+
+  }
+
+  handleClick (i) {
+    const copy_squares = this.state.squares.slice(); // this creates a new copy of the squares
+
+    let next = this.state.isNextClickX;
+    
+    if(next === true){
+      copy_squares[i] = 'X'
+      next = false;
+    } else{
+      copy_squares[i] = 'O'
+      next = true;
+    }
+
+    console.log(next);
+    //is X next = false : true
+
+
+
+    this.setState({
+      squares: copy_squares,
+      isNextClickX : next
+    })
+ 
+  }
+
+  //create an array from 1..9 [1,2,3,4,5,6,7,8,9]
+
    render(){
-    const i = 3;
+    const status = `Next Player - ${this.state.isNextClickX   ? 'X': 'O'}`; //string  interpolation
+
     return (
-       <div>
-          <Square value={i} />
+        <div>
+          <h1>{status} </h1>
+          <div className="board-row">
+              <Square value={this.state.squares[1]}
+                onClick = {()=>this.handleClick(1)} />
+
+              <Square value={this.state.squares[2]}
+                onClick = {()=>this.handleClick(2)} />
+
+              <Square value={this.state.squares[3]}
+                onClick = {()=>this.handleClick(3)} />
+
+              <div className="board-row">
+              </div>
+              <Square value={this.state.squares[4]} 
+               onClick = {()=>this.handleClick(4)} />
+
+              <Square value={this.state.squares[5]} 
+               onClick = {()=>this.handleClick(5)} />
+
+              <Square value={this.state.squares[6]} 
+                onClick = {()=>this.handleClick(6)} />
+
+
+              <div className="board-row">
+              </div>
+              <Square value={this.state.squares[7]} 
+               onClick = {()=>this.handleClick(7)} />
+
+              <Square value={this.state.squares[8]} 
+               onClick = {()=>this.handleClick(8)} />
+
+              <Square value={this.state.squares[9]} 
+                onClick = {()=>this.handleClick(9)} />
+              </div>
+
         </div>
-    );
+     );
   }
  
 }
